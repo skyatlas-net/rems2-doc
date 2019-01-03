@@ -2,7 +2,7 @@
 ## 概述
 有些时候，直接展现监控获得的数据，会不够直观，对已有的监控数据，进行组合、计算后，所获得的新数据，会更直观、负荷用户的需求。
 所以，_Calculated 监控项_ 创建了一个虚拟的数据。定期使用我们定义的计算表达式，获得计算值。计算操作有REMS2 Server执行，计算操作不会在Agent程序或者Proxy节点上执行。
-_Calculated 监控项_ 的数值，会保存在REMS2 Repository数据库中，所以 _Calculate 监控项_ 有_History、Trend_ 数据，可以利用REMS2的“图表”功能，进行快速的展现。_Calculated 监控项_ 和普通监控项一样，可以被 _Trigger_ 、_Macro_ 所引用。
+_Calculated 监控项_ 的数值，会保存在REMS2 Repository数据库中，所以 _Calculate 监控项_ 有 _History、Trend_ 数据，可以利用REMS2的“图表”功能，进行快速的展现。_Calculated 监控项_ 和普通监控项一样，可以被 _Trigger_ 、_Macro_ 所引用。
 ## 配置Calculated 监控项
 首先，我们要为 _Calculate 监控项_ 制定一个key，这个key不能与其他监控项冲突。
 计算表达式，需要在 _Formula_ 中输入，key 和 计算表达式无法直接关联——即使Key中指定了参数，在计算表达式中也无法使用此参数。
