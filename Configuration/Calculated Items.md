@@ -7,7 +7,7 @@ _Calculated 监控项_ 的数值，会保存在REMS2 Repository数据库中，�
 首先，我们要为 _Calculate 监控项_ 制定一个key，这个key不能与其他监控项冲突。
 计算表达式，需要在 _Formula_ 中输入，key 和 计算表达式无法直接关联——即使Key中指定了参数，在计算表达式中也无法使用此参数。
 最基础的计算表达式语法如下：
-> func(<key>|<hostname:key>,<parameter1>,<parameter2>...)
+`func(<key>|<hostname:key>,<parameter1>,<parameter2>...)`
 
 func 可以是trigger 表达式中使用的function：last,min,max,avg,count, etc
 key 计算时所需要使用的别的监控项，强烈建议将key值用双引号（“）包围，否则如果key中如果有空格、逗号会导致Parse错误，如果key中需要出现双引号，需要使用\\转意。
