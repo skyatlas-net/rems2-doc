@@ -26,24 +26,24 @@ _Calculate 监控项_ unsupported 的常见原因:
 4. 语法错误
 
 ## 使用举例
-** Example 1: 计算 / 文件系统空闲百分比 **
+### ** Example 1: 计算 / 文件系统空闲百分比 **
 > 100*last("vfs.fs.size[/,free]")/last("vfs.fs.size[/,total]")
 > 
 
 我们可以看到,两次调用last函数,last函数只制定了一个参数: 我们需要的key
-** Exapmple 2: 计算过去10分钟,某监控项的平均直**
+### ** Exapmple 2: 计算过去10分钟,某监控项的平均直**
 > avg("Zabbix Server:zabbix[wcache,values]",600)
 
 avg 函数,第一个参数是key,用双引号包围,第二个参数是时间, 过去600秒内,该key对应监控项的平均直.
-** Example 3: 计算网卡带宽**
+### ** Example 3: 计算网卡带宽**
 > last("net.if.in[eth0,bytes]")+last("net.if.out[eth0,bytes]")
 > 
 
-** Example 4: 下载流量的百分比**
+### ** Example 4: 下载流量的百分比**
 > 100*last("net.if.in[eth0,bytes]")/(last("net.if.in[eth0,bytes]")+last("net.if.out[eth0,bytes]"))
 > 
 
-** Example 5: 在表达式中引用聚组监控项**
+### ** Example 5: 在表达式中引用聚组监控项**
 > last("grpsum[\"video\",\"net.if.out[eth0,bytes]\",\"last\"]") / last("grpsum[\"video\",\"nginx_stat.sh[active]\",\"last\"]")
 
 
