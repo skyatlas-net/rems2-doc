@@ -15,6 +15,7 @@ Rems2中，有六种自动发现的监控项目是开箱即用的：
 自动发现的流程没有什么特别：服务器要求Rems agent（或者其他模块）提供监控项目，agent返回文本值。差别在于，这个文本值是JSON格式，其包含被“发现”的被监控实体列表。返回的数据中，会包含一些列macro－value对，比如：网络监控项”net.if.discovery”会返回“\{#IFNAME}”->”lo” 和”\{#IFNAME}”->”eth0”。这些返回的“macro”在后续的自动创建监控项、触发器、数据图表设置“监控节点”时，会作为“name”、“key”之类的属性使用。
 接下来的部分解释一下——how－to－使用、配置上述过程：
 ## Discovery of file systems
+```
 Configuration -> Templates -> Discovery -> Create discovery rule …
 name —>  discovery 规则的名称
 Type —>  执行discovery的类型，Rems agent、rems agent ，如果自定义的是不是就得是Rems2 trapper？？
@@ -44,6 +45,7 @@ Expression —> \{Template OS Linux:vfs.fs.size\[\{#FSNAME},pfree].last(0)}<20
 需要注意，自动发现规则创建“实体”名称不能已经在系统对应“namespace”中存在。
 另外，LLD创建的监控项、触发器、数据图表不能够被手工删除。如果被发现的entities消失，它们会自动被删除（Keep lost resources period）。
 Entities如果包含其他被标志为“待删除”的entities，将不会再更新数据，如：一个LLD触发器，如果包含“待删除”监控项，将不再会更新。
+```
 ## Discovery of network interfaces
 		net.if.discovery, net.if.in\[\{#IFNAME},bytes],net.if.out\[\{#IFNAME},bytes]
 ## Discovery of CPUs and CPU cores
