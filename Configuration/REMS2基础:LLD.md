@@ -16,34 +16,34 @@ Rems2中，有六种自动发现的监控项目是开箱即用的：
 接下来的部分解释一下——how－to－使用、配置上述过程：
 ## Discovery of file systems
 Configuration -> Templates -> Discovery -> Create discovery rule …
-	name —>  discovery 规则的名称
-	Type —>  执行discovery的类型，Rems agent、rems agent ，如果自定义的是不是就得是Rems2 trapper？？
-	Key —> 对应type的key值，需要返回json
-	update interval —> 执行discovery操作的间隔
-	custom intervals —> …
-	keep lost resources period(in days) —> 自动发现的监控项，即使“not discovered anymore”仍然保留天数
-	description，enabled …
+name —>  discovery 规则的名称
+Type —>  执行discovery的类型，Rems agent、rems agent ，如果自定义的是不是就得是Rems2 trapper？？
+Key —> 对应type的key值，需要返回json
+update interval —> 执行discovery操作的间隔
+custom intervals —> …
+keep lost resources period(in days) —> 自动发现的监控项，即使“not discovered anymore”仍然保留天数
+description，enabled …
 _Filters_ tab 设置“自动发现”规则的过滤条件定义
-	可以定义逻辑表达式 —> A or (B and C) …
-	每一个逻辑但愿都是 诸如 返回的 “MACRO” 匹配 某 regex ？
+可以定义逻辑表达式 —> A or (B and C) …
+每一个逻辑但愿都是 诸如 返回的 “MACRO” 匹配 某 regex ？
 创建完这个“filesystem” 自动发现规则后，在该规则的items（对应这个规则，自动创建的监控项）部分点击“Create prototype“ ：
-	Name —> 监控项名称，可以带占位符（$1 $2 …) Free disk space on $1(percentage)
-	Type —> 监控项执行类型（Rems2 agent、Rems2 trapper…),此处监控文件系统，使用Rems2 agent
-	key —> 监控项key（可使用MACRO，此处监控文件系统，使用vfs.fs.size\[\{#FSNAME}],pfree）
-	Type of information —> Numeric(float) 返回数据类型
-	Units —> %  百分比
-	。。。
-	同样的，我们创建trigger prototypes…
-	Name —> Free disk space is less than 20% on volume \{#FSNAME}
-	Expression —> \{Template OS Linux:vfs.fs.size\[\{#FSNAME},pfree].last(0)}<20
-	…
-	当前版本的Rems2，trigger prototypes之间可以定义dependencies关系，一个trigger prototype可以依赖于同一个LLD 规则定义的trigger prototype或者一个常规trigger。一个trigger prototype不要去依赖于其他LLD规则定义的trigger prototype。监控节点的trigger prototype不能依赖于模板的trigger prototype。
-	同样的，我们可以创建数据图表prototype：
-		定义方式跟常规数据图表没有什么区别，但是选择的items是基于发现规则创建的item prototype。
-	这样，“自动发现”规则的整个过程就这些了。
-	需要注意，自动发现规则创建“实体”名称不能已经在系统对应“namespace”中存在。
-	另外，LLD创建的监控项、触发器、数据图表不能够被手工删除。如果被发现的entities消失，它们会自动被删除（Keep lost resources period）。
-	Entities如果包含其他被标志为“待删除”的entities，将不会再更新数据，如：一个LLD触发器，如果包含“待删除”监控项，将不再会更新。
+Name —> 监控项名称，可以带占位符（$1 $2 …) Free disk space on $1(percentage)
+Type —> 监控项执行类型（Rems2 agent、Rems2 trapper…),此处监控文件系统，使用Rems2 agent
+key —> 监控项key（可使用MACRO，此处监控文件系统，使用vfs.fs.size\[\{#FSNAME}],pfree）
+Type of information —> Numeric(float) 返回数据类型
+Units —> %  百分比
+。。。
+同样的，我们创建trigger prototypes…
+Name —> Free disk space is less than 20% on volume \{#FSNAME}
+Expression —> \{Template OS Linux:vfs.fs.size\[\{#FSNAME},pfree].last(0)}<20
+…
+当前版本的Rems2，trigger prototypes之间可以定义dependencies关系，一个trigger prototype可以依赖于同一个LLD 规则定义的trigger prototype或者一个常规trigger。一个trigger prototype不要去依赖于其他LLD规则定义的trigger prototype。监控节点的trigger prototype不能依赖于模板的trigger prototype。
+同样的，我们可以创建数据图表prototype：
+    定义方式跟常规数据图表没有什么区别，但是选择的items是基于发现规则创建的item prototype。
+这样，“自动发现”规则的整个过程就这些了。
+需要注意，自动发现规则创建“实体”名称不能已经在系统对应“namespace”中存在。
+另外，LLD创建的监控项、触发器、数据图表不能够被手工删除。如果被发现的entities消失，它们会自动被删除（Keep lost resources period）。
+Entities如果包含其他被标志为“待删除”的entities，将不会再更新数据，如：一个LLD触发器，如果包含“待删除”监控项，将不再会更新。
 ## Discovery of network interfaces
 		net.if.discovery, net.if.in\[\{#IFNAME},bytes],net.if.out\[\{#IFNAME},bytes]
 ## Discovery of CPUs and CPU cores
