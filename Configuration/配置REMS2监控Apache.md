@@ -22,8 +22,9 @@ Allow from all
 ---------------------
 ```
 重启apache使其生效：
-    `# /usr/local/apache2/bin/apachectl restart`
- 
+    ```
+    # /usr/local/apache2/bin/apachectl restart
+    ```
 ## 二.rems2 配置：
  
 将下载下来的zip包内apache目录下的apache_status.sh上传到系统/usr/local/bin/下，并赋予
@@ -37,7 +38,9 @@ Allow from all
     ```
 在 rems2 中可以自定义监控变量，通过自己写的bash脚本来抓取相关信息返回给rems2 server，这里我们需要在运行rems2 agent的服务器上编辑/etc/rems2/zabbix_agentd.conf (也可能在/usr/local/etc 内)
 修改rems2_agentd.conf配置：
-   ` # vi /usr/local/etc/rems2_agentd.conf`
+   ```
+    # vi /usr/local/etc/rems2_agentd.conf
+    ```
 末行添加如下内容：
     ```
     -------------
